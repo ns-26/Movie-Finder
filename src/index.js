@@ -6,23 +6,23 @@ import App from './components/App';
 import movies from './reducers';
 
 const store = createStore(movies);
-console.log(store);
-console.log('Before State', store.getState());
 
-//using dispatch we send actions to the store
-store.dispatch({
-	type: 'ADD_MOVIES',
-	movies: [
-		{
-			name: 'Superman'
-		}
-	]
-});
-console.log('After State', store.getState());
+// console.log('Before State', store.getState());
+
+// //using dispatch we send actions to the store
+// store.dispatch({
+// 	type: 'ADD_MOVIES',
+// 	movies: [
+// 		{
+// 			name: 'Superman'
+// 		}
+// 	]
+// });
+// console.log('After State', store.getState());
 
 ReactDOM.render(
 	<React.StrictMode>
-		<App />
+		<App store={store} />
 	</React.StrictMode>,
 	document.getElementById('root')
 );
