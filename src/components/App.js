@@ -10,12 +10,14 @@ class App extends React.Component {
 		store.subscribe(() => {
 			console.log('Updated');
 			this.forceUpdate(); //forecefully update the component but should not be done
+			return;
 		});
 		//make api calls
 
 		//after successful api call dispatch an action that we need to add the movies
 		store.dispatch(addMovies(data));
 		console.log('State', store.getState());
+		return;
 	}
 	isMovieFavourite(movie) {
 		const { favourites } = this.props.store.getState();
@@ -27,7 +29,6 @@ class App extends React.Component {
 		return true;
 	}
 	onChangeTab = (val) => {
-		console.log(val);
 		console.log(this.props.store.dispatch(setShowFavourites(val)));
 		return;
 	};

@@ -3,17 +3,9 @@ import { ADD_MOVIES, ADD_TO_FAVOURITES, REMOVE_FROM_FAVOURITES, SET_SHOW_FAVOURI
 const initialMoviesState = {
 	list: [],
 	favourites: [],
-	showFavourites: true
+	showFavourites: false
 };
 export default function movies(state = initialMoviesState, action) {
-	//state shows the current state of the store
-	// if (action.type === ADD_MOVIES) {
-	// 	return {
-	// 		...state,
-	// 		list: action.movies
-	// 	};
-	// }
-	// return state; //a reducer has to return something always so be careful
 	switch (action.type) {
 		case ADD_MOVIES:
 			return { ...state, list: action.movies };
@@ -26,6 +18,15 @@ export default function movies(state = initialMoviesState, action) {
 			return { ...state, showFavourites: action.val };
 		default:
 			return state;
+
+		//state shows the current state of the store
+		// if (action.type === ADD_MOVIES) {
+		// 	return {
+		// 		...state,
+		// 		list: action.movies
+		// 	};
+		// }
+		// return state; //a reducer has to return something always so be careful
 	}
 }
 
