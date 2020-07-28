@@ -1,4 +1,4 @@
-import { ADD_MOVIES } from '../actions';
+import { ADD_MOVIES, ADD_FAVOURITE, REMOVE_FAVOURITE } from '../actions';
 
 const initialMoviesState = {
 	list: [],
@@ -6,13 +6,23 @@ const initialMoviesState = {
 };
 export default function movies(state = initialMoviesState, action) {
 	//state shows the current state of the store
-	if (action.type === ADD_MOVIES) {
-		return {
-			...state,
-			list: action.movies
-		};
+	// if (action.type === ADD_MOVIES) {
+	// 	return {
+	// 		...state,
+	// 		list: action.movies
+	// 	};
+	// }
+	// return state; //a reducer has to return something always so be careful
+	switch (action.type) {
+		case ADD_MOVIES:
+			return { ...state, list: action.movies };
+		case ADD_FAVOURITE:
+			return { ...state, favourites: [ action.movie, ...state.favourites ] };
+		case REMOVE_FAVOURITE:
+			return { ...state, favourites: [ action.movie, ...state.favourites ] };
+		default:
+			return state;
 	}
-	return state; //a reducer has to return something always so be careful
 }
 
 // this reducer is a pure function which neither imports anything out of the argument nor changes the DOM it just returns a value
