@@ -1,6 +1,6 @@
 export default function movies(state = [], action) {
 	//state shows the current state of the store
-	if (action.type == 'ADD_MOVIES') {
+	if (action.type === 'ADD_MOVIES') {
 		return action.movies;
 	}
 	return state; //a reducer has to return something always so be careful
