@@ -1,11 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import './index.css';
 import App from './components/App';
 import rootReducer from './reducers';
 
-const store = createStore(rootReducer);
+//function logger = functopn (obj,next,action){}//curried form of this
+//curried function handled by redux
+const logger = function({ dispatch, getState }) {
+	//redux sends an object with the dispatch and the getState property
+	return function(next) {
+		return function(action) {
+			//middleware Code
+			console.log('ACTION TYPE =', action.type);
+			next(action);
+		};
+	};
+};
+
+const store = createStore(rootReducer, applyMiddleware(logger));
 
 // console.log('Before State', store.getState());
 
