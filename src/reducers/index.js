@@ -2,6 +2,7 @@
 //NOTE: reducer always returns the new state does not modify the current state,and then the new state is merged ny the store itself
 //for the state  = [] now the store is setup and it calls the reducer internally if the state is undefined then it is assigned the value given else the value which is defined
 
+import { combineReducers } from 'redux';
 import { ADD_MOVIES, ADD_TO_FAVOURITES, REMOVE_FROM_FAVOURITES, SET_SHOW_FAVOURITES } from '../actions';
 
 const initialMoviesState = {
@@ -50,9 +51,15 @@ const initialRootState = {
 	search: initialSearchState
 };
 
-export default function rootReducer(state = initialRootState, action) {
-	return {
-		movies: movies(state.movies, action),
-		search: search(state.search, action)
-	};
-}
+// export default function rootReducer(state = initialRootState, action) {
+// 	return {
+// 		movies: movies(state.movies, action),
+// 		search: search(state.search, action)
+// 	};
+// }
+
+//default function provided by redux
+export default combineReducers({
+	movies,
+	search: search //passing references of the functions
+});
