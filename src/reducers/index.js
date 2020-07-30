@@ -3,7 +3,14 @@
 //for the state  = [] now the store is setup and it calls the reducer internally if the state is undefined then it is assigned the value given else the value which is defined
 
 import { combineReducers } from 'redux';
-import { ADD_MOVIES, ADD_TO_FAVOURITES, REMOVE_FROM_FAVOURITES, SET_SHOW_FAVOURITES } from '../actions';
+import {
+	ADD_MOVIES,
+	ADD_TO_FAVOURITES,
+	REMOVE_FROM_FAVOURITES,
+	SET_SHOW_FAVOURITES,
+	ADD_SEARCH_RESULT,
+	ADD_MOVIES_TO_LIST
+} from '../actions';
 
 const initialMoviesState = {
 	list: [],
@@ -23,6 +30,8 @@ export function movies(state = initialMoviesState, action) {
 			return { ...state, favourites: filteredArray };
 		case SET_SHOW_FAVOURITES:
 			return { ...state, showFavourites: action.val };
+		case ADD_MOVIES_TO_LIST:
+			return { ...state, list: [ action.movie, ...state.list ] };
 		default:
 			return state;
 
@@ -38,12 +47,24 @@ export function movies(state = initialMoviesState, action) {
 }
 
 const initialSearchState = {
-	result: {}
+	result: {},
+	showSearchResults: false
 };
 
 export function search(state = initialSearchState, action) {
 	console.log('Search Reducer');
-	return state;
+	switch (action.type) {
+		case ADD_SEARCH_RESULT:
+			return {
+				...state,
+				result: action.movie,
+				showSearchResults: true
+			};
+		case ADD_MOVIES_TO_LIST:
+			return { ...state, showSearchResults: false };
+		default:
+			return state;
+	}
 }
 
 const initialRootState = {

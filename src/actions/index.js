@@ -13,6 +13,7 @@ export const ADD_TO_FAVOURITES = 'ADD_TO_FAVOURITES';
 export const REMOVE_FROM_FAVOURITES = 'REMOVE_FROM_FAVOURITES';
 export const SET_SHOW_FAVOURITES = 'SET_SHOW_FAVOURITES';
 export const ADD_MOVIES_TO_LIST = 'ADD_MOVIES_TO_LIST';
+export const ADD_SEARCH_RESULT = 'ADD_SEARCH_RESULT';
 
 //action creators
 export function addMovies(movies) {
@@ -62,7 +63,15 @@ export function handleMovieSearch(value) {
 
 				//dispatch({type:'ADD_SEARCH_RESULT' , movie})
 				//but action creators send an object to handle a function we need middleware
+				dispatch(addMovieSearchResult(movie));
 			})
 			.catch((err) => console.log(err));
+	};
+}
+
+export function addMovieSearchResult(movie) {
+	return {
+		type: ADD_SEARCH_RESULT,
+		movie
 	};
 }
