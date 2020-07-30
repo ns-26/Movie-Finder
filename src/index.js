@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import './index.css';
 import App from './components/App';
 import rootReducer from './reducers';
 
 //function logger = functopn (obj,next,action){}//curried form of this
 //curried function handled by redux
-const logger = function({ dispatch, getState }) {
+
+//first syntax
+/*const logger = function({ dispatch, getState }) {
 	//redux sends an object with the dispatch and the getState property
 	return function(next) {
 		return function(action) {
@@ -16,9 +19,25 @@ const logger = function({ dispatch, getState }) {
 			next(action);
 		};
 	};
+};*/
+
+const logger = ({ dispatch, getState }) => (next) => (action) => {
+	//logger code
+	if (typeof action !== 'function') {
+		console.log(('ACTION TYPE = ', action.type));
+	}
+	next(action);
 };
 
-const store = createStore(rootReducer, applyMiddleware(logger));
+// const thunk = ({ dispatch, getState }) => (next) => (action) => {
+// 	if (typeof action == 'function') {
+// 		action(dispatch);
+// 		return;
+// 	}
+// 	next(action);
+// };
+
+const store = createStore(rootReducer, applyMiddleware(logger, thunk));
 
 // console.log('Before State', store.getState());
 

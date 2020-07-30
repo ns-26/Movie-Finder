@@ -7,6 +7,7 @@ class MovieCard extends React.Component {
 		this.props.dispatch(addFavourite(movie));
 		return;
 	};
+
 	handleUnFavouriteClick = () => {
 		const { movie } = this.props;
 		this.props.dispatch(removeFavourite(movie));
