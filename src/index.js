@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
@@ -51,10 +51,23 @@ const store = createStore(rootReducer, applyMiddleware(logger, thunk));
 // 	]
 // });
 // console.log('After State', store.getState());
+export const StoreContext = createContext();
+console.log('Store Context', StoreContext);
 
+//directly use it or make the provide class
+class Provider extends React.Component {
+	render() {
+		const { store } = this.props;
+		return <StoreContext.Provider value={store}>{this.props.children}</StoreContext.Provider>;
+	}
+}
+
+//using the provider class instead because it allows us more flexibility
 ReactDOM.render(
-	<React.StrictMode>
-		<App store={store} />
-	</React.StrictMode>,
+	// <React.StrictMode>
+	<Provider store={store}>
+		<App />
+	</Provider>,
+	// </React.StrictMode>
 	document.getElementById('root')
 );
