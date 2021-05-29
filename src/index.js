@@ -1,11 +1,11 @@
-import React, { createContext } from 'react';
-import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import { Provider } from 'react-redux';
-import './index.css';
-import App from './components/App';
-import rootReducer from './reducers';
+import React, { createContext } from "react";
+import ReactDOM from "react-dom";
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import { Provider } from "react-redux";
+import "./index.css";
+import App from "./components/App";
+import rootReducer from "./reducers";
 
 //function logger = functopn (obj,next,action){}//curried form of this
 //curried function handled by redux
@@ -23,11 +23,11 @@ import rootReducer from './reducers';
 };*/
 
 const logger = ({ dispatch, getState }) => (next) => (action) => {
-	//logger code
-	if (typeof action !== 'function') {
-		console.log(('ACTION TYPE = ', action.type));
-	}
-	next(action);
+  //logger code
+  if (typeof action !== "function") {
+    console.log(("ACTION TYPE = ", action.type));
+  }
+  next(action);
 };
 
 // const thunk = ({ dispatch, getState }) => (next) => (action) => {
@@ -52,8 +52,8 @@ const store = createStore(rootReducer, applyMiddleware(logger, thunk));
 // 	]
 // });
 // console.log('After State', store.getState());
-export const StoreContext = createContext();
-console.log('Store Context', StoreContext);
+// export const StoreContext = createContext();
+// console.log("Store Context", StoreContext);
 
 //directly use it or make the provide class
 // class Provider extends React.Component {
@@ -95,11 +95,12 @@ console.log('Store Context', StoreContext);
 // 	};
 // }
 //using the provider class instead because it allows us more flexibility
+
 ReactDOM.render(
-	// <React.StrictMode>
-	<Provider store={store}>
-		<App />
-	</Provider>,
-	// </React.StrictMode>
-	document.getElementById('root')
+  // <React.StrictMode>
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  // </React.StrictMode>
+  document.getElementById("root")
 );
